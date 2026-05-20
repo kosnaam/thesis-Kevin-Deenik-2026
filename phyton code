@@ -1,0 +1,147 @@
+import numpy as np
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+
+### loading in the data for both sides, shown as area A ###
+Area_A =r"C:\Users\8799792\OneDrive - Universiteit Utrecht\finished maps\thesis data 19 may\Finished maps\compare A 13-05\update A 29 april\MyProject.gdb"
+
+
+Area_A_sentinel = gpd.read_file(Area_A, layer="Shapefile_SentinelA_Dissolve_Kevin2")
+Area_A_vintage = gpd.read_file(Area_A, layer = "Shapefile_VintageA_Disolved_Kevin")
+
+### loading in the data for both sides, shown as area D ###
+Area_D = r"C:\Users\8799792\OneDrive - Universiteit Utrecht\finished maps\thesis data 19 may\Finished maps\compare D 13-05\finsihed compare D april 24\Compare D.gdb"
+
+Area_D_sentinel = gpd.read_file(Area_D, layer="Shapefile_SentinelD_Dissolve_Kevin")
+Area_D_vintage = gpd.read_file(Area_D, layer = "Shapefile_VintageD_Dissolve_Kevin")
+
+
+#Here i ussed the same colors as my arcgis project so it is easy to compare if you want to plot the map in phyton instead of arcgis
+Color_map = {   
+    "Cloud": "0070FF",
+    "Coral" : "FF00C5",
+    "Sand" : "FFFF00",
+    "Water" : "FF2B18",
+    "Land" : "000000"}
+#the area is now in meter which gives it very large number and makes it difficult to understand so we put in km^2
+#note this has been added later so some graphs below dont use this yet(this is for all the area stuff)
+Area_A_sentinel['Area_km2'] =  Area_A_sentinel['SHAPE_Area']/1e6
+Area_A_vintage['Area_km2'] =  Area_A_vintage['Shape_Area']/1e6
+#Now calculate the percentage
+Area_A_sentinel_total = Area_A_sentinel["Area_km2"].sum()
+Area_A_vintage_total = Area_A_vintage["Area_km2"].sum()
+#procent of the area occoped by the class
+Area_A_sentinel['Area_%'] = (Area_A_sentinel["Area_km2"]/Area_A_sentinel_total)*100
+Area_A_vintage['Area_%'] = (Area_A_vintage["Area_km2"]/Area_A_vintage_total)*100
+#you could exclude the land from A because it is not so ussefull same 
+#can be said about water and cloud but I will first include them and later show the 
+#same plot but with them excluded that is why this exclude thing is here
+Exclude = ["water", "Land", "Cloud"]
+#test plot to see if it works
+plt.bar(Area_A_sentinel['Class_name'],Area_A_sentinel['SHAPE_Area'])
+plt.bar(Area_A_vintage['Class_name'],Area_A_vintage['Shape_Area'])
+
+
+#now try to put it in one plot with the two next to eachother (link over code zie zetero)
+Class_name = Area_A_sentinel['Class_name']
+SArea_km2 =  Area_A_sentinel['Area_km2']
+VArea_km2 = Area_A_vintage['Area_km2']
+ax = plt.subplot()
+
+w, x =0.4 ,  np.arange(len(Class_name))
+
+
+ax.bar(x - w/2, SArea_km2, width=w, label='Sentinel', color="Red")
+ax.bar(x + w/2, VArea_km2, width=w, label='Vintage', color="Blue")
+
+ax.set_xticks(x)
+ax.set_xticklabels(Class_name)
+ax.set_ylabel('Values in km2')
+ax.set_title('Area in km2 for each class from Vintage to Sentinel')
+ax.legend()
+
+plt.show()
+
+Procent_difference = Area_A_sentinel_total/Area_A_vintage_total *100 -100
+print(Procent_difference)
+#-0.2167% so there is very little difference between the two maps, but in the vintage map some areas are better to see and other worse
+
+#again but now for percentages
+Class_name = Area_A_sentinel['Class_name']
+
+ax = plt.subplot()
+
+w, x =0.4 ,  np.arange(len(Class_name))
+
+ax.bar(x + w/2, Area_A_vintage['Area_%'], width=w, label='Vintage', color="Blue")
+ax.bar(x - w/2, Area_A_sentinel['Area_%'], width=w, label='Sentinel', color="Red")
+
+
+ax.set_xticks(x)
+ax.set_xticklabels(Class_name)
+ax.set_ylabel('Percentage of total area')
+ax.set_title('Area in percentage for each class from Vintage to Sentinel')
+ax.legend()
+
+plt.show()
+
+
+#now for area D
+
+
+
+Area_D_sentinel['Area_km2'] =  Area_D_sentinel['SHAPE_Area']/1e6
+Area_D_vintage['Area_km2'] =  Area_D_vintage['Shape_Area']/1e6
+#Now calculate the percentage
+Area_D_sentinel_total = Area_D_sentinel["Area_km2"].sum()
+Area_D_vintage_total = Area_D_vintage["Area_km2"].sum()
+#procent of the area occoped by the class
+Area_D_sentinel['Area_%'] = (Area_D_sentinel["Area_km2"]/Area_D_sentinel_total)*100
+Area_D_vintage['Area_%'] = (Area_D_vintage["Area_km2"]/Area_D_vintage_total)*100
+
+Class_name = Area_A_sentinel['Class_name']
+SDArea_km2 =  Area_D_sentinel['Area_km2']
+VDArea_km2 = Area_D_vintage['Area_km2']
+ax = plt.subplot()
+
+w, x =0.4 ,  np.arange(len(Class_name))
+
+ax.bar(x + w/2, SDArea_km2, width=w, label='Sentinel', color="Red")
+ax.bar(x - w/2, VDArea_km2, width=w, label='Vintage', color="Blue")
+
+
+ax.set_xticks(x)
+ax.set_xticklabels(Class_name)
+ax.set_ylabel('Values in km2')
+ax.set_title('Area in km2 for each class from Vintage to Sentinel')
+ax.legend()
+
+plt.show()
+
+Procent_differenceD = Area_D_sentinel_total/Area_D_vintage_total *100 -100
+print(Procent_differenceD)
+#-13,98 this is a bit to much so we will look at the percentages and if that doesnt work we have to cut pieces of the map
+Class_name = Area_A_sentinel['Class_name']
+
+ax = plt.subplot()
+
+w, x =0.4 ,  np.arange(len(Class_name))
+
+ax.bar(x - w/2, Area_D_sentinel['Area_%'], width=w, label='Sentinel', color="Red")
+ax.bar(x + w/2, Area_D_vintage['Area_%'], width=w, label='Vintage', color="Blue")
+
+
+
+ax.set_xticks(x)
+ax.set_xticklabels(Class_name)
+ax.set_ylabel('Percentage of total area')
+ax.set_title('Area in percentage for each class from Vintage to Sentinel')
+ax.legend()
+
+plt.show()
+
+
+#to improve you could cut of the pieces which are not needed
