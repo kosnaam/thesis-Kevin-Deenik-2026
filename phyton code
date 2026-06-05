@@ -682,7 +682,7 @@ print(Area_A_vintage_Patch_cloud_Average_Edge_effect)
 #total edge effect this is slightly different this is add all the areas and all the shape length together and see then what happens
 Area_A_vintage_Patch_cloud_Average_Edge_effect_total = np.sum(Area_A_vintage_Patch_cloud["Shape_Length"])/np.sum(Area_A_vintage_Patch_cloud["Shape_Area"])
 print(Area_A_vintage_Patch_cloud_Average_Edge_effect_total)
-#the total edge effect of cloud of vintage area A 0.338106
+#the total edge effect of cloud of vintage area A 0.0338106
 #coral
 Area_A_vintage_Patch_coral = Area_A_vintage_Patch.loc[lambda  Area_A_vintage_Patch:  Area_A_vintage_Patch["Class_name"] == "Coral"]
 
