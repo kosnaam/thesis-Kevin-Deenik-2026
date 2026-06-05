@@ -29,9 +29,10 @@ Area_D = r"C:\Users\8799792\OneDrive - Universiteit Utrecht\finished maps\thesis
 Area_D_sentinel = gpd.read_file(Area_D, layer="Shapefile_SentinelD_Dissolve_Kevin")
 Area_D_vintage = gpd.read_file(Area_D, layer = "Shapefile_VintageD_Dissolve_Kevin")
 
+#These cannot be ussed because they are not the same size
 #the patches individually
-Area_D_sentinel_Patch =  gpd.read_file(Area_D, layer="Shapefile_SentinelD_Dissolve_patchesV2")
-Area_D_vintage_Patch = gpd.read_file(Area_D, layer="Shapefile_VintageD_Dissolve_patches")
+#Area_D_sentinel_Patch =  gpd.read_file(Area_D, layer="Shapefile_SentinelD_Dissolve_patchesV2")
+#Area_D_vintage_Patch = gpd.read_file(Area_D, layer="Shapefile_VintageD_Dissolve_patches")
 
 #clip all together
 Area_D_sentinel_clip2 = gpd.read_file(Area_D, layer="shape_SentinelD_diss_Project1")
