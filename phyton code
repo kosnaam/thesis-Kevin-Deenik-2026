@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
 #%%
 #loading in some ussefull package
 #script is put into multiple cells because this makes it smoother for the intere document
@@ -28,6 +34,7 @@ Area_D = r"C:\Users\8799792\OneDrive - Universiteit Utrecht\finished maps\thesis
 #all together
 Area_D_sentinel = gpd.read_file(Area_D, layer="Shapefile_SentinelD_Dissolve_Kevin")
 Area_D_vintage = gpd.read_file(Area_D, layer = "Shapefile_VintageD_Dissolve_Kevin")
+
 
 #These cannot be ussed because they are not the same size
 #the patches individually
@@ -325,7 +332,7 @@ Area_A_sentinel_Patch["Shape_Area_>100m2"] =  Area_A_sentinel_Patch["SHAPE_Area"
 
 #OPEN THIS CODE FOR VALUES BELOW AND DO NOT FORGET TO CLOSE IT
 # i tryed giving it a different name that did not work
-#Area_A_sentinel_Patch.drop(Area_A_sentinel_Patch[Area_A_sentinel_Patch["Shape_Area_>100m2"] == False].index, inplace = True)
+Area_A_sentinel_Patch.drop(Area_A_sentinel_Patch[Area_A_sentinel_Patch["Shape_Area_>100m2"] == False].index, inplace = True)
 
 Area_A_sentinel_Patch_cloud = Area_A_sentinel_Patch.loc[lambda  Area_A_sentinel_Patch:  Area_A_sentinel_Patch["Class_name"] == "cloud"]
 Area_A_sentinel_Patch_coral = Area_A_sentinel_Patch.loc[lambda  Area_A_sentinel_Patch:  Area_A_sentinel_Patch["Class_name"] == "coral"]
@@ -337,29 +344,29 @@ Area_A_sentinel_Patch_water = Area_A_sentinel_Patch.loc[lambda  Area_A_sentinel_
 
 Area_A_sentinel_Patch_cloud_mean = np.mean(Area_A_sentinel_Patch_cloud["SHAPE_Area"])
 print(Area_A_sentinel_Patch_cloud_mean)
-# The mean patch area of clouds in the vintage map nan m2
+# The mean patch area of clouds in the sentinel map nan m2
 Area_A_sentinel_Patch_coral_mean = np.mean(Area_A_sentinel_Patch_coral["SHAPE_Area"])
 print(Area_A_sentinel_Patch_coral_mean)
-# The mean patch area of coral in the vintage map 17712.03 m2
+# The mean patch area of coral in the sentinel map 17712.03 m2
 Area_A_sentinel_Patch_grass_mean = np.mean(Area_A_sentinel_Patch_grass["SHAPE_Area"])
 print(Area_A_sentinel_Patch_grass_mean)
-# The mean patch area of grass in the vintage map 24617.50 m2
+# The mean patch area of grass in the sentinel map 24617.50 m2
 Area_A_sentinel_Patch_land_mean = np.mean(Area_A_sentinel_Patch_land["SHAPE_Area"])
 print(Area_A_sentinel_Patch_land_mean)
-# The mean patch area of land in the vintage map 264866.35 m2
+# The mean patch area of land in the sentinel map 264866.35 m2
 Area_A_sentinel_Patch_sand_mean = np.mean(Area_A_sentinel_Patch_sand["SHAPE_Area"])
 print(Area_A_sentinel_Patch_sand_mean)
-# The mean patch area of sand in the vintage map 12371.53 m2
+# The mean patch area of sand in the sentinel map 12371.53 m2
 Area_A_sentinel_Patch_water_mean = np.mean(Area_A_sentinel_Patch_water["SHAPE_Area"])
 print(Area_A_sentinel_Patch_water_mean)
-# The mean patch area of water in the vintage map 1153011.34 m2
+# The mean patch area of water in the sentinel map 1153011.34 m2
 
 
 Area_A_vintage_Patch["Shape_Area_>100m2"] =  Area_A_vintage_Patch["Shape_Area"] > 100
 
 #OPEN THIS CODE FOR VALUES BELOW AND DO NOT FORGET TO CLOSE IT
 # i tryed giving it a different name that did not work
-#Area_A_vintage_Patch.drop(Area_A_vintage_Patch[Area_A_vintage_Patch["Shape_Area_>100m2"] == False].index, inplace = True)
+Area_A_vintage_Patch.drop(Area_A_vintage_Patch[Area_A_vintage_Patch["Shape_Area_>100m2"] == False].index, inplace = True)
 
 
 Area_A_vintage_Patch_cloud = Area_A_vintage_Patch.loc[lambda  Area_A_vintage_Patch:  Area_A_vintage_Patch["Class_name"] == "Cloud"]
@@ -392,7 +399,7 @@ Area_A_sentinel_Patch_count3 = Area_A_sentinel_Patch.value_counts(subset=Area_A_
 #this plot will not work unless every class is mentioned so that is why we add it
 
 #open this if you want to see the plot
-#Area_A_sentinel_Patch_count3['Clouds'] = 0
+Area_A_sentinel_Patch_count3['Clouds'] = 0
 
 Area_A_vintage_Patch_count3 = Area_A_vintage_Patch.value_counts(subset=  Area_A_vintage_Patch['Class_name'])
 #this put it automatically from asending to decending so we first have to sort it.
@@ -571,6 +578,7 @@ print(Area_A_vintage_Patch_sand_LGI2)
 Area_A_sentinel_Patch["Edge_Effect"] = (Area_A_sentinel_Patch["SHAPE_Length"]/Area_A_sentinel_Patch["SHAPE_Area"])
 Area_A_sentinel_Patch.drop(Area_A_sentinel_Patch[Area_A_sentinel_Patch["Shape_Area_>100m2"] == False].index, inplace = True)
 
+
 Area_A_sentinel_Patch_Average_Edge_effect =np.average(Area_A_sentinel_Patch["Edge_Effect"])
 print(Area_A_sentinel_Patch_Average_Edge_effect)
 #The average edge effect of individuel of Sentinel area A 0.1579
@@ -667,11 +675,11 @@ Area_A_vintage_Patch.drop(Area_A_vintage_Patch[Area_A_vintage_Patch["Shape_Area_
 Area_A_vintage_Patch["Edge_Effect"] = Area_A_vintage_Patch["Shape_Length"]/Area_A_vintage_Patch["Shape_Area"]
 Area_A_vintage_Patch_Average_Edge_effect = np.average(Area_A_vintage_Patch["Edge_Effect"])
 print(Area_A_vintage_Patch_Average_Edge_effect)
-#The average edge effect of individuel of vintage area 0.1863
+#The average edge effect of individuel of vintage area A 0.1863
 
 Area_A_vintage_Patch_Average_Edge_effect_total = np.sum(Area_A_vintage_Patch["Shape_Length"])/np.sum(Area_A_vintage_Patch["Shape_Area"])
 print(Area_A_vintage_Patch_Average_Edge_effect_total)
-#0.04312098
+#The total edge effect of individuel of vintage area A 0.04312098
 
 #now for each class
 #CLOUDS
@@ -821,22 +829,22 @@ plt.show()
 #sentinel area D
 Area_D_sentinel_Patch_cloud_mean = np.mean(Area_D_sentinel_Patch_cloud["SHAPE_Area"])
 print(Area_D_sentinel_Patch_cloud_mean)
-# The mean patch area of clouds in the vintage map nan
+# The mean patch area of clouds in the sentinel map nan
 Area_D_sentinel_Patch_coral_mean = np.mean(Area_D_sentinel_Patch_coral["SHAPE_Area"])
 print(Area_D_sentinel_Patch_coral_mean)
-# The mean patch area of coral in the vintage map 5165.81 m2
+# The mean patch area of coral in the sentinel map 5165.81 m2
 Area_D_sentinel_Patch_grass_mean = np.mean(Area_D_sentinel_Patch_grass["SHAPE_Area"])
 print(Area_D_sentinel_Patch_grass_mean)
-# The mean patch area of grass in the vintage map 243391.22 m2
+# The mean patch area of grass in the sentinel map 243391.22 m2
 Area_D_sentinel_Patch_land_mean = np.mean(Area_D_sentinel_Patch_land["SHAPE_Area"])
 print(Area_D_sentinel_Patch_land_mean)
-# The mean patch area of land in the vintage map 13290915.06 m2
+# The mean patch area of land in the sentinel map 13290915.06 m2
 Area_D_sentinel_Patch_sand_mean = np.mean(Area_D_sentinel_Patch_sand["SHAPE_Area"])
 print(Area_D_sentinel_Patch_sand_mean)
-# The mean patch area of sand in the vintage map 118334.74 m2
+# The mean patch area of sand in the sentinel map 118334.74 m2
 Area_D_sentinel_Patch_water_mean = np.mean(Area_D_sentinel_Patch_water["SHAPE_Area"])
 print(Area_D_sentinel_Patch_water_mean)
-# The mean patch area of water in the vintage map nan m2
+# The mean patch area of water in the sentinel map nan m2
 
 #vintage area D
 Area_D_vintage_Patch_cloud_mean = np.mean(Area_D_vintage_Patch_cloud["Shape_Area"])
