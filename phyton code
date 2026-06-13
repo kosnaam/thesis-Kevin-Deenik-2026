@@ -64,7 +64,7 @@ Color_map = {
 #%%
 #cell 3
 
-# to check if both of the map create the same area this was not the case multiple times that is why there are so many lines of code and sometimes things named 2 or more
+# To check if both maps create the same area, this was not the case multiple times; that is why there are so many lines of code and sometimes things named 2 or more
 #Area A
 Area_A_sentinel['Area_km2'] =  Area_A_sentinel['SHAPE_Area']/1e6
 Area_A_vintage['Area_km2'] =  Area_A_vintage['Shape_Area']/1e6
@@ -73,7 +73,7 @@ Area_A_sentinel_total = Area_A_sentinel["Area_km2"].sum()
 Area_A_vintage_total = Area_A_vintage["Area_km2"].sum()
 Procent_difference = Area_A_sentinel_total/Area_A_vintage_total *100 -100
 print(Procent_difference)
-#-0.2167% so there is very little difference between the two maps, but in the vintage map some areas are better to see and other worse
+#-0.2167% so there is very little difference between the two maps, but in the vintage map some areas are better to see and others worse
 
 #Area D
 Area_D_sentinel['Area_km2'] =  Area_D_sentinel['SHAPE_Area']/1e6
@@ -120,7 +120,7 @@ Area_A_vintage['Area_%'] = (Area_A_vintage["Area_km2"]/Area_A_vintage_total)*100
 Exclude = ["water", "Land", "Cloud"]
 
 
-#now try to put it in one plot with the two next to each other (link over code zie zetero)
+#now try to put it in one plot with the two next to each other (Plotting Multiple Bar Charts Using Matplotlib in Python, 00:53:50+00:00)
 #area A in km2 histogram
 Class_name = Area_A_sentinel['Class_name']
 SArea_km2 =  Area_A_sentinel['Area_km2']
@@ -186,7 +186,7 @@ Area_D_sentinel_clip2['Area_%'] = (Area_D_sentinel_clip2["Area_km2"]/Area_D_sent
 Area_D_vintageD_clip2['Area_%'] = (Area_D_vintageD_clip2["Area_km2"]/Area_D_vintageD_clip2_total)*100
 #reset index bc cloud was added later with value 0 this results in it not being in alphabetical order, and this Python does not like
 #Area_D_sentinel_clip2.set_index("Class_name")
-# thank to https://www.youtube.com/watch?v=dAPiMAKpWg4 it finally worked
+# thanks to (MediData Perspectives, 2025) it finally worked
 Area_D_sentinel_clip2 = Area_D_sentinel_clip2.sort_values(by = 'Class_name')
 #sort2_Area_D_sentinel_clip2 = sorted(Area_D_sentinel_clip2, key = lambda x: Area_D_sentinel_clip2["Class_name"])
 Class_name = Area_A_sentinel['Class_name']
@@ -251,7 +251,7 @@ Area_A_sentinel_Patch_count = Area_A_sentinel_Patch.value_counts(subset=Area_A_s
 
 Area_A_vintage_Patch_count = Area_A_vintage_Patch.value_counts(subset= Area_A_vintage_Patch['Class_name'])
 #this automatically switches it from ascending to descending (by the number of patches), so we first have to sort it.
-#https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
+#(Pandas.DataFrame.Sort_index — Pandas 3.0.3 Documentation, n.d.-a)
 Area_A_sentinel_Patch_count2 = Area_A_sentinel_Patch_count.sort_index()
 Area_A_vintage_Patch_count2 = Area_A_vintage_Patch_count.sort_index()
 Class_name = Area_A_sentinel['Class_name']
@@ -271,7 +271,7 @@ ax.set_title('Amount of patches from vintage and sentinel of each Class')
 ax.legend()
 
 plt.show()
-#now we want to know the average size patch of each class https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html
+#now we want to know the average size patch of each class (Pandas.DataFrame.Loc — Pandas 3.0.3 Documentation, n.d.)
 #to make sure everything is readable we are making a log function for the area
 # this i cant get to work with the 6 different types so i will usse a different sort of plot below it
  
@@ -319,7 +319,7 @@ print(Area_A_sentinel_Patch_mean)
 
 Area_A_sentinel_Patch_cloud_mean = np.mean(Area_A_sentinel_Patch_cloud["SHAPE_Area"])
 print(Area_A_sentinel_Patch_cloud_mean)
-# The mean patch area of clouds in the vintage map 53.94 m2
+# The mean patch area of clouds in the vintage map is 53.94 m2
 Area_A_sentinel_Patch_coral_mean = np.mean(Area_A_sentinel_Patch_coral["SHAPE_Area"])
 print(Area_A_sentinel_Patch_coral_mean)
 # The mean patch area of coral in the vintage map is 17492.75 m2
@@ -331,17 +331,17 @@ print(Area_A_sentinel_Patch_land_mean)
 # The mean patch area of land in the vintage map is 227028.67 m2
 Area_A_sentinel_Patch_sand_mean = np.mean(Area_A_sentinel_Patch_sand["SHAPE_Area"])
 print(Area_A_sentinel_Patch_sand_mean)
-# The mean patch area of sand in the vintage map 11563.26 m2
+# The mean patch area of sand in the vintage map is 11563.26 m2
 Area_A_sentinel_Patch_water_mean = np.mean(Area_A_sentinel_Patch_water["SHAPE_Area"])
 print(Area_A_sentinel_Patch_water_mean)
-# The mean patch area of water in the vintage map 1153011.34 m2
+# The mean patch area of water in the vintage map is 1153011.34 m2
 
 
 # Because there are some very small patches (0.1 m2), we can ignore those because the margin of error is ~15 m. Now we recalculate the mean but only for patches > than 100m2
 
-#this makes sure that all the patches smaller than 100 m2 will give a false result, which we will drop so the recalculation can be done
+# This makes sure that all the patches smaller than 100 m2 will give a false result, which we will drop so the recalculation can be done
 Area_A_sentinel_Patch["Shape_Area_>100m2"] =  Area_A_sentinel_Patch["SHAPE_Area"] > 100
-#https://stackoverflow.com/questions/37213556/remove-rows-that-contain-false-in-a-column-of-pandas-dataframe
+#(DeepSpace, 2016; Pandas.DataFrame.Sort_index — Pandas 3.0.3 Documentation, n.d.-b)
 #this does make them drop, but unfortunately it drops from the entire dataframe; this will be used for this entire dataframe, this will then be deactivated
 
 #OPEN THIS CODE FOR VALUES BELOW AND DO NOT FORGET TO CLOSE IT
@@ -367,7 +367,7 @@ print(Area_A_sentinel_Patch_cloud_mean)
 # The mean patch area of clouds in the sentinel map is nan m2
 Area_A_sentinel_Patch_coral_mean = np.mean(Area_A_sentinel_Patch_coral["SHAPE_Area"])
 print(Area_A_sentinel_Patch_coral_mean)
-# The mean patch area of coral in the sentinel map 17712.03 m2
+# The mean patch area of coral in the sentinel map is 17712.03 m2
 Area_A_sentinel_Patch_grass_mean = np.mean(Area_A_sentinel_Patch_grass["SHAPE_Area"])
 print(Area_A_sentinel_Patch_grass_mean)
 # The mean patch area of grass in the sentinel map 24617.50 m2
@@ -376,10 +376,10 @@ print(Area_A_sentinel_Patch_land_mean)
 # The mean patch area of land in the sentinel map 264866.35 m2
 Area_A_sentinel_Patch_sand_mean = np.mean(Area_A_sentinel_Patch_sand["SHAPE_Area"])
 print(Area_A_sentinel_Patch_sand_mean)
-# The mean patch area of sand in the sentinel map 12371.53 m2
+# The mean patch area of sand in the Sentinel map is 12371.53 m2
 Area_A_sentinel_Patch_water_mean = np.mean(Area_A_sentinel_Patch_water["SHAPE_Area"])
 print(Area_A_sentinel_Patch_water_mean)
-# The mean patch area of water in the sentinel map is 1153011.34 m2
+# The mean patch area of water in the Sentinel map is 1153011.34 m2
 
 
 #vintage area A
@@ -392,7 +392,7 @@ print(Area_A_vintage_Patch_cloud_mean)
 # The mean patch area of clouds in the vintage map is 52272.66 m2
 Area_A_vintage_Patch_coral_mean = np.mean(Area_A_vintage_Patch_coral["Shape_Area"])
 print(Area_A_vintage_Patch_coral_mean)
-# The mean patch area of coral in the vintage map 13126.31 m2
+# The mean patch area of coral in the vintage map is 13126.31 m2
 Area_A_vintage_Patch_grass_mean = np.mean(Area_A_vintage_Patch_grass["Shape_Area"])
 print(Area_A_vintage_Patch_grass_mean)
 # The mean patch area of grass in the vintage map is 51394.87 m2
@@ -404,7 +404,7 @@ print(Area_A_vintage_Patch_sand_mean)
 # The mean patch area of sand in the vintage map is 20143.93 m2
 Area_A_vintage_Patch_water_mean = np.mean(Area_A_vintage_Patch_water["Shape_Area"])
 print(Area_A_vintage_Patch_water_mean)
-# The mean patch area of water in the vintage map 1950467.99 m2
+# The mean patch area of water in the vintage map is 1950467.99 m2
 Area_A_vintage_Patch["Shape_Area_>100m2"] =  Area_A_vintage_Patch["Shape_Area"] > 100
 
 #OPEN THIS CODE FOR VALUES BELOW AND DO NOT FORGET TO CLOSE IT
@@ -437,7 +437,7 @@ print(Area_A_vintage_Patch_land_mean)
 # The mean patch area of land in the vintage map is 234173.21 m2
 Area_A_vintage_Patch_sand_mean = np.mean(Area_A_vintage_Patch_sand["Shape_Area"])
 print(Area_A_vintage_Patch_sand_mean)
-# The mean patch area of sand in the vintage map 24826.20 m2
+# The mean patch area of sand in the vintage map is 24826.20 m2
 Area_A_vintage_Patch_water_mean = np.mean(Area_A_vintage_Patch_water["Shape_Area"])
 print(Area_A_vintage_Patch_water_mean)
 # The mean patch area of water in the vintage map is 1950467.99 m2
@@ -450,7 +450,7 @@ Area_A_sentinel_Patch_count3['Clouds'] = 0
 
 Area_A_vintage_Patch_count3 = Area_A_vintage_Patch.value_counts(subset=  Area_A_vintage_Patch['Class_name'])
 #this automatically switches it from ascending to descending, so we first have to sort it.
-#https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
+#(Pandas.DataFrame.Sort_index — Pandas 3.0.3 Documentation, n.d.-a)
 Area_A_sentinel_patch_count4 = Area_A_sentinel_Patch_count3.sort_index()
 Area_A_vintage_Patch_count4 =  Area_A_vintage_Patch_count3.sort_index()
 Class_name = Area_A_sentinel['Class_name']
@@ -483,7 +483,7 @@ Area_A_sentinel_Patch_sand_total = Area_A_sentinel_Patch_sand["SHAPE_Area"].sum(
 Area_A_sentinel_Patch_land_total = Area_A_sentinel_Patch_land["SHAPE_Area"].sum()
 Area_A_sentinel_Patch_water_total = Area_A_sentinel_Patch_water["SHAPE_Area"].sum()
 
-#select the largest  https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html
+#select the largest  (Pandas.DataFrame.Nlargest — Pandas 3.0.3 Documentation, n.d.)
 Area_A_sentinel_Patch_cloud_largest = Area_A_sentinel_Patch_cloud.nlargest(1,["SHAPE_Area"])
 Area_A_sentinel_Patch_coral_largest = Area_A_sentinel_Patch_coral.nlargest(1,["SHAPE_Area"])
 Area_A_sentinel_Patch_grass_largest = Area_A_sentinel_Patch_grass.nlargest(1,["SHAPE_Area"])
@@ -557,7 +557,7 @@ Area_A_vintage_Patch_sand_total = Area_A_vintage_Patch_sand["Shape_Area"].sum()
 Area_A_vintage_Patch_land_total = Area_A_vintage_Patch_land["Shape_Area"].sum()
 Area_A_vintage_Patch_water_total = Area_A_vintage_Patch_water["Shape_Area"].sum()
 
-#select the largest  https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html
+# Select the largest  (Pandas.DataFrame.Nlargest — Pandas 3.0.3 Documentation, n.d.)
 Area_A_vintage_Patch_cloud_largest = Area_A_vintage_Patch_cloud.nlargest(1,["Shape_Area"])
 Area_A_vintage_Patch_coral_largest = Area_A_vintage_Patch_coral.nlargest(1,["Shape_Area"])
 Area_A_vintage_Patch_grass_largest = Area_A_vintage_Patch_grass.nlargest(1,["Shape_Area"])
@@ -622,9 +622,9 @@ barier_reef_decrease_area_A = (barier_reef_sentinel_A /barier_reef_vintage_A) *1
 print(barier_reef_decrease_area_A)
 #decrease of 10.2%
 #%%
+#Cell 10
 #edge effect
-
-# the shape length is the same as the edge length; here is some information on this, and I checked 9 polygons to see if it was the same https://community.esri.com/t5/arcgis-online-questions/are-shape-length-and-shape-length-really-the-same/td-p/1694794
+# the shape length is the same as the edge length; here is some information on this, and I checked 9 polygons to see if it was the same (Are Shape_Length and Shape__Length Really the Same?, 2026)
 #because very small areas can have a large edge effect, the area smaller than 100m2 will be deleted
 
 #sentinel
@@ -740,7 +740,7 @@ print(Area_A_vintage_Patch_Average_Edge_effect_total)
 Area_A_vintage_Patch_cloud = Area_A_vintage_Patch.loc[lambda  Area_A_vintage_Patch:  Area_A_vintage_Patch["Class_name"] == "Cloud"]
 Area_A_vintage_Patch_cloud_Average_Edge_effect =np.average(Area_A_vintage_Patch_cloud["Edge_Effect"])
 print(Area_A_vintage_Patch_cloud_Average_Edge_effect)
-#The average edge effect of cloud of vintage area A 0.043417
+#The average edge effect of cloud of vintage area A is 0.043417
 
 #total edge effect this is slightly different this is add all the areas and all the shape length together and see then what happens
 Area_A_vintage_Patch_cloud_Average_Edge_effect_total = np.sum(Area_A_vintage_Patch_cloud["Shape_Length"])/np.sum(Area_A_vintage_Patch_cloud["Shape_Area"])
@@ -823,7 +823,7 @@ Area_D_sentinel_patch_clip_count['Clouds'] = 0
 Area_D_sentinel_patch_clip_count['Water'] = 0
 Area_D_vintage_Patch_clip2_count = Area_D_vintage_Patch_clip2.value_counts(subset=  Area_D_vintage_Patch_clip2['Class_name'])
 #this automatically switches it from ascending to descending, so we first have to sort it.
-#https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
+#(Pandas.DataFrame.Sort_index — Pandas 3.0.3 Documentation, n.d.-b)
 Area_D_sentinel_patch_clip_count2 = Area_D_sentinel_patch_clip_count.sort_index()
 Area_D_vintage_Patch_clip2_count2 =  Area_D_vintage_Patch_clip2_count.sort_index()
 Class_name = Area_A_sentinel['Class_name']
@@ -890,7 +890,7 @@ print(Area_D_sentinel_Patch_mean)
 
 Area_D_sentinel_Patch_cloud_mean = np.mean(Area_D_sentinel_Patch_cloud["SHAPE_Area"])
 print(Area_D_sentinel_Patch_cloud_mean)
-# The mean patch area of clouds in the sentinel map nan
+# The mean patch area of clouds in the Sentinel map nan
 Area_D_sentinel_Patch_coral_mean = np.mean(Area_D_sentinel_Patch_coral["SHAPE_Area"])
 print(Area_D_sentinel_Patch_coral_mean)
 # The mean patch area of coral in the sentinel map 5165.81 m2
@@ -935,13 +935,13 @@ print(Area_D_sentinel_Patch_cloud_mean)
 # The mean patch area of clouds in the sentinel map nan
 Area_D_sentinel_Patch_coral_mean = np.mean(Area_D_sentinel_Patch_coral["SHAPE_Area"])
 print(Area_D_sentinel_Patch_coral_mean)
-# The mean patch area of coral in the sentinel map 5403.80 m2
+# The mean patch area of coral in the sentinel map is 5403.80 m2
 Area_D_sentinel_Patch_grass_mean = np.mean(Area_D_sentinel_Patch_grass["SHAPE_Area"])
 print(Area_D_sentinel_Patch_grass_mean)
 # The mean patch area of grass in the sentinel map is 328574.11 m2
 Area_D_sentinel_Patch_land_mean = np.mean(Area_D_sentinel_Patch_land["SHAPE_Area"])
 print(Area_D_sentinel_Patch_land_mean)
-# The mean patch area of land in the sentinel map 26581740.86 m2
+# The mean patch area of land in the sentinel map is 26581740.86 m2
 Area_D_sentinel_Patch_sand_mean = np.mean(Area_D_sentinel_Patch_sand["SHAPE_Area"])
 print(Area_D_sentinel_Patch_sand_mean)
 # The mean patch area of sand in the sentinel map 129784.68 m2
@@ -962,19 +962,19 @@ print(Area_D_vintage_Patch_cloud_mean)
 # The mean patch area of clouds in the vintage map is 59723.72 m2
 Area_D_vintage_Patch_coral_mean = np.mean(Area_D_vintage_Patch_coral["Shape_Area"])
 print(Area_D_vintage_Patch_coral_mean)
-# The mean patch area of coral in the vintage map 3888.44 m2
+# The mean patch area of coral in the vintage map is 3888.44 m2
 Area_D_vintage_Patch_grass_mean = np.mean(Area_D_vintage_Patch_grass["Shape_Area"])
 print(Area_D_vintage_Patch_grass_mean)
 # The mean patch area of grass in the vintage map is 243524.07 m2
 Area_D_vintage_Patch_land_mean = np.mean(Area_D_vintage_Patch_land["Shape_Area"])
 print(Area_D_vintage_Patch_land_mean)
-# The mean patch area of land in the vintage map 8531598.29 m2
+# The mean patch area of land in the vintage map is 8531598.29 m2
 Area_D_vintage_Patch_sand_mean = np.mean(Area_D_vintage_Patch_sand["Shape_Area"])
 print(Area_D_vintage_Patch_sand_mean)
-# The mean patch area of sand in the vintage map 52161.75 m2
+# The mean patch area of sand in the vintage map is 52161.75 m2
 Area_D_vintage_Patch_water_mean = np.mean(Area_D_vintage_Patch_water["Shape_Area"])
 print(Area_D_vintage_Patch_water_mean)
-# The mean patch area of water in the vintage map 661.57 m2
+# The mean patch area of water in the vintage map is 661.57 m2
 #vintage >100
 Area_D_vintage_Patch_clip2["Shape_Area_>100m2"] =  Area_D_vintage_Patch_clip2["Shape_Area"] > 100
 
@@ -1001,7 +1001,7 @@ print(Area_D_vintage_Patch_cloud_mean)
 # The mean patch area of clouds in the vintage map is 59723.72 m2
 Area_D_vintage_Patch_coral_mean = np.mean(Area_D_vintage_Patch_coral["Shape_Area"])
 print(Area_D_vintage_Patch_coral_mean)
-# The mean patch area of coral in the vintage map 4207.33 m2
+# The mean patch area of coral in the vintage map is 4207.33 m2
 Area_D_vintage_Patch_grass_mean = np.mean(Area_D_vintage_Patch_grass["Shape_Area"])
 print(Area_D_vintage_Patch_grass_mean)
 # The mean patch area of grass in the vintage map is 245737.78 m2
@@ -1010,7 +1010,7 @@ print(Area_D_vintage_Patch_land_mean)
 # The mean patch area of land in the vintage map is 8531598.29 m2
 Area_D_vintage_Patch_sand_mean = np.mean(Area_D_vintage_Patch_sand["Shape_Area"])
 print(Area_D_vintage_Patch_sand_mean)
-# The mean patch area of sand in the vintage map 52743.67 m2
+# The mean patch area of sand in the vintage map is 52743.67 m2
 Area_D_vintage_Patch_water_mean = np.mean(Area_D_vintage_Patch_water["Shape_Area"])
 print(Area_D_vintage_Patch_water_mean)
 # The mean patch area of water in the vintage map is 1297.46 m2
@@ -1024,7 +1024,7 @@ Area_D_sentinel_patch_clip_count['Clouds'] = 0
 Area_D_sentinel_patch_clip_count['Water'] = 0
 Area_D_vintage_Patch_clip2_count = Area_D_vintage_Patch_clip2.value_counts(subset=  Area_D_vintage_Patch_clip2['Class_name'])
 #this automatically switches it from ascending to descending, so we first have to sort it.
-#https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
+#(Pandas.DataFrame.Sort_index — Pandas 3.0.3 Documentation, n.d.-b)
 Area_D_sentinel_patch_clip_count2 = Area_D_sentinel_patch_clip_count.sort_index()
 Area_D_vintage_Patch_clip2_count2 =  Area_D_vintage_Patch_clip2_count.sort_index()
 Class_name = Area_A_sentinel['Class_name']
@@ -1058,7 +1058,7 @@ Area_D_sentinel_Patch_sand_total = Area_D_sentinel_Patch_sand["SHAPE_Area"].sum(
 Area_D_sentinel_Patch_land_total = Area_D_sentinel_Patch_land["SHAPE_Area"].sum()
 Area_D_sentinel_Patch_water_total = Area_D_sentinel_Patch_water["SHAPE_Area"].sum()
 
-#select the largest  https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html
+#select the largest  (Pandas.DataFrame.Nlargest — Pandas 3.0.3 Documentation, n.d.)
 Area_D_sentinel_Patch_cloud_largest = Area_D_sentinel_Patch_cloud.nlargest(1,["SHAPE_Area"])
 Area_D_sentinel_Patch_coral_largest = Area_D_sentinel_Patch_coral.nlargest(1,["SHAPE_Area"])
 Area_D_sentinel_Patch_grass_largest = Area_D_sentinel_Patch_grass.nlargest(1,["SHAPE_Area"])
@@ -1132,7 +1132,7 @@ Area_D_vintage_Patch_sand_total = Area_D_vintage_Patch_sand["Shape_Area"].sum()
 Area_D_vintage_Patch_land_total = Area_D_vintage_Patch_land["Shape_Area"].sum()
 Area_D_vintage_Patch_water_total = Area_D_vintage_Patch_water["Shape_Area"].sum()
 
-#select the largest  https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html
+#select the largest  (Pandas.DataFrame.Nlargest — Pandas 3.0.3 Documentation, n.d.)
 Area_D_vintage_Patch_cloud_largest = Area_D_vintage_Patch_cloud.nlargest(1,["Shape_Area"])
 Area_D_vintage_Patch_coral_largest = Area_D_vintage_Patch_coral.nlargest(1,["Shape_Area"])
 Area_D_vintage_Patch_grass_largest = Area_D_vintage_Patch_grass.nlargest(1,["Shape_Area"])
@@ -1193,7 +1193,7 @@ print(Area_D_vintage_Patch_sand_LGI2)
 #%%
 #edge effect
 #cell 15
-# the shape length is the same as the edge length; here is some information on this, and I checked 9 polygons to see if it was the same https://community.esri.com/t5/arcgis-online-questions/are-shape-length-and-shape-length-really-the-same/td-p/1694794
+# the shape length is the same as the edge length; here is some information on this, and I checked 9 polygons to see if it was the same (Are Shape_Length and Shape__Length Really the Same?, 2026)
 #because very small areas can have a large edge effect, the area smaller than 100m2 will be deleted
 #area D
 #sentinel
@@ -1205,7 +1205,7 @@ Area_D_sentinel_Patch_Average_Edge_effect =np.average(Area_D_sentinel_patch_clip
 print(Area_D_sentinel_Patch_Average_Edge_effect)
 #The average edge effect of individual Sentinel area D: 0.144483
 
-#total edge effect this is slightly different this is add all the areas and all the shape length together and see then what happens
+#total edge effect: this is slightly different; this is adding all the areas and all the shape lengths together and seeing what happens
 Area_D_sentinel_Patch_Average_Edge_effect_total = np.sum(Area_D_sentinel_patch_clip["SHAPE_Length"])/np.sum(Area_D_sentinel_patch_clip["SHAPE_Area"])
 print(Area_D_sentinel_Patch_Average_Edge_effect_total)
 # the total edge effect of Area D sentinel 0.010841
